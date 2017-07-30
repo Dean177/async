@@ -37,6 +37,7 @@
     }
   },
   "license": "MIT",
+  "files": ["dist"],
   "main": "dist/abortable.js",
   "types": "dist/abortable.d.ts",
   "scripts": {

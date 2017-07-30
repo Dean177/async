@@ -50,6 +50,7 @@
     }
   },
   "license": "MIT",
+  "files": ["dist"],
   "main": "dist/withAsyncResource.js",
   "types": "dist/withAsyncResource.d.ts",
   "scripts": {
