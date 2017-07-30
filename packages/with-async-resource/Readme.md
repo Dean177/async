@@ -1,6 +1,6 @@
 # with-async-resource
 
-Avoid boilerplate and a common pitfall when working with promise producing functions in react
+Avoid boilerplate and a common pitfalls when working with promise producing functions in react
 
 ## Installation
 

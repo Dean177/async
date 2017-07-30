@@ -1,4 +1,5 @@
 coverage
+Readme.md
 src
 setupTestFramework.js
 yarn.lock

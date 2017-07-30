@@ -50,8 +50,8 @@
     }
   },
   "license": "MIT",
-  "main": "dist/withUrlState.js",
-  "types": "dist/withUrlState.d.ts",
+  "main": "dist/withAsyncResource.js",
+  "types": "dist/withAsyncResource.d.ts",
   "scripts": {
     "build": "rm -rf dist && tsc",
     "build:dev": "tsc --noEmit --pretty --watch",

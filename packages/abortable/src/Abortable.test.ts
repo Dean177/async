@@ -1,4 +1,4 @@
-import * as Abortable from './Abortable';
+import * as Abortable from './abortable';
 
 describe('Abortable.all', () => {
   it('will call the onFulfilled handler once all AbortablePromises have been resolved', () => {

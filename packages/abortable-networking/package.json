@@ -42,7 +42,8 @@
     }
   },
   "license": "MIT",
-  "main": "index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "rm -rf dist && tsc",
     "build:dev": "tsc --noEmit --pretty --watch",
