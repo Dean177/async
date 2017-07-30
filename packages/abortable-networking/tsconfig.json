@@ -2,7 +2,7 @@
   "compilerOptions": {
     "declaration": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["es6"],
+    "lib": ["dom", "es6"],
     "module": "commonjs",
     "moduleResolution": "node",
     "noEmitOnError": true,
