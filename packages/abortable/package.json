@@ -37,7 +37,9 @@
     }
   },
   "license": "MIT",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "dist/abortable.js",
   "types": "dist/abortable.d.ts",
   "scripts": {
@@ -48,5 +50,5 @@
     "test:dev": "jest --watch",
     "prepublish": "npm run test && npm run build"
   },
-  "version": "0.0.4"
+  "version": "0.0.5"
 }
