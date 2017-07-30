@@ -42,8 +42,8 @@
     }
   },
   "license": "MIT",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/networking.js",
+  "types": "dist/networking.d.ts",
   "scripts": {
     "build": "rm -rf dist && tsc",
     "build:dev": "tsc --noEmit --pretty --watch",

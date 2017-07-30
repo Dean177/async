@@ -2,5 +2,6 @@ coverage
 Readme.md
 src
 setupTestFramework.js
+tsconfig.json
 yarn.lock
 yarn-error.log
