@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "abortable": "^0.0.1",
+    "abortable": "^0.0.2",
     "lodash": "4.17.4"
   },
   "peerDependencies": {
@@ -61,5 +61,5 @@
     "prepublish": "npm run test && npm run build"
   },
   "name": "with-async-resource",
-  "version": "0.0.1"
+  "version": "0.0.2"
 }
