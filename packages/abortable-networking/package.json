@@ -1,7 +1,7 @@
 {
   "name": "abortable-networking",
   "dependencies": {
-    "abortable": "^0.0.2",
+    "abortable": "^0.0.3",
     "lodash": "^4.17.4"
   },
   "peerDependencies": {
@@ -52,5 +52,5 @@
     "test:dev": "jest --watch",
     "prepublish": "npm run test && npm run build"
   },
-  "version": "0.0.2"
+  "version": "0.0.3"
 }
