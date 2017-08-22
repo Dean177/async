@@ -47,7 +47,7 @@ export const withAsyncResource = <OP, T>(
               if (!this._isMounted) {
                 return;
               }
-              this.setState({isLoading: false, result: response});
+              setTimeout(() => this.setState({isLoading: false, result: response}));
             })
             .catch(this.onError)
             .then(() => {

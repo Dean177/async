@@ -52,6 +52,7 @@ describe('withAsyncResource', () => {
     jest.runOnlyPendingTimers();
 
     return promise.then(() => {
+      jest.runOnlyPendingTimers();
       expect(wrapper.find<Props>(TestComponent).props().quantity).toBe(1);
       expect(wrapper.find<Props>(TestComponent).props().async.isLoading).toBe(false);
       expect(wrapper.find<Props>(TestComponent).props().async.error).toEqual(null);
