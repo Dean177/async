@@ -3,8 +3,8 @@ import * as request from 'superagent';
 import { SuperAgentRequest, Response } from 'superagent';
 
 type BearerToken = string;
-type HttpVerb = 'delete' | 'get' | 'patch' | 'post' | 'put';
 type Milliseconds = number;
+export type HttpVerb = 'delete' | 'get' | 'patch' | 'post' | 'put';
 
 const defaultTimeout: Milliseconds = 60000;
 

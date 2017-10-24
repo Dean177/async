@@ -1,11 +1,11 @@
 {
   "dependencies": {
-    "abortable": "^0.0.5",
-    "lodash": "4.17.4"
+    "abortable": "0.0.5",
+    "lodash": "^4.17.4"
   },
   "peerDependencies": {
-    "react": "15.6.x",
-    "react-dom": "15.6.x"
+    "react": "15.x || 16.x",
+    "react-dom": "15.x || 16.x"
   },
   "devDependencies": {
     "@types/enzyme": "2.8.4",
@@ -14,12 +14,13 @@
     "@types/react": "15.6.0",
     "@types/react-dom": "15.5.1",
     "concurrently": "3.5.0",
-    "enzyme": "2.9.1",
+    "enzyme": "3.1.0",
+    "enzyme-adapter-react-16": "1.0.2",
     "jest": "20.0.4",
     "jsdom": "11.1.0",
-    "react": "15.6.1",
-    "react-dom": "15.6.1",
-    "react-test-renderer": "15.6.1",
+    "react": "16.0.0",
+    "react-dom": "16.0.0",
+    "react-test-renderer": "16.0.0",
     "ts-jest": "20.0.7",
     "typescript": "2.4.2"
   },

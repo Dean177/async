@@ -39,13 +39,13 @@ describe('withAsyncResource', () => {
 
     expect(wrapper.find<Props>(TestComponent).props().quantity).toBe(1);
     expect(wrapper.find<Props>(TestComponent).props().async.isLoading).toBe(true);
-    expect(wrapper.find<Props>(TestComponent).props().async.error).toEqual(null);
-    expect(wrapper.find<Props>(TestComponent).props().async.result).toEqual(null);
+    expect(wrapper.find<Props>(TestComponent).props().async.error).toBeNull();
+    expect(wrapper.find<Props>(TestComponent).props().async.result).toBeNull();
   });
 
   it('displays its content, providing the promise resolution as a prop', () => {
     const result = { chocolate: 5 };
-    const promise: Promise<TestAsyncValue> = new Promise((resolve) => setTimeout(() => resolve(result), 0));
+    const promise: Promise<TestAsyncValue> = new Promise((resolve) => resolve(result));
     const EnhancedComponent = withAsyncResource<TestComponentOwnProps, TestAsyncValue>(() => promise)(TestComponent);
 
     const wrapper = mount(<EnhancedComponent quantity={1} />);
@@ -53,10 +53,12 @@ describe('withAsyncResource', () => {
 
     return promise.then(() => {
       jest.runOnlyPendingTimers();
-      expect(wrapper.find<Props>(TestComponent).props().quantity).toBe(1);
-      expect(wrapper.find<Props>(TestComponent).props().async.isLoading).toBe(false);
-      expect(wrapper.find<Props>(TestComponent).props().async.error).toEqual(null);
-      expect(wrapper.find<Props>(TestComponent).props().async.result).toEqual(result);
+      wrapper.update();
+      const props = wrapper.find<Props>(TestComponent).props();
+      expect(props.quantity).toBe(1);
+      expect(props.async.isLoading).toBe(false);
+      expect(props.async.error).toBeNull();
+      expect(props.async.result).toEqual(result);
     });
   });
 
@@ -68,10 +70,12 @@ describe('withAsyncResource', () => {
     const wrapper = mount(<EnhancedComponent quantity={1} />);
     wrapper.setState({ error: reason, isLoading: false });
 
-    expect(wrapper.find<Props>(TestComponent).props().quantity).toBe(1);
-    expect(wrapper.find<Props>(TestComponent).props().async.isLoading).toBe(false);
-    expect(wrapper.find<Props>(TestComponent).props().async.error).toEqual(reason);
-    expect(wrapper.find<Props>(TestComponent).props().async.result).toEqual(null);
+    const props = wrapper.find<Props>(TestComponent).props();
+
+    expect(props.quantity).toBe(1);
+    expect(props.async.isLoading).toBe(false);
+    expect(props.async.error).toEqual(reason);
+    expect(props.async.result).toBeNull();
   });
 
   it('aborts the promise if the component is unmounted', () => {
