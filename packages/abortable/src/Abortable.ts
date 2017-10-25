@@ -2,11 +2,18 @@ import { forEach, identity, map, reduce } from 'lodash';
 
 export type Abortable<T> = Promise<T> & { abort(): void };
 
-export type AbortableLike<T> = Abortable<T> | Promise<T> | T;
+export type Cancelable<T> = Promise<T> & { cancel(): void };
 
-const abort = (abortables: Array<Abortable<any>>) =>
+export type AbortableLike<T> = Abortable<T> | Cancelable<T> | Promise<T> | T;
+
+const abort = (abortables: Array<AbortableLike<any>>) =>
   forEach(abortables, abortable => {
-    abortable.abort != null && abortable.abort();
+    if (abortable.abort != null) {
+      return abortable.abort();
+    }
+    if (abortable.cancel != null) {
+      return abortable.cancel();
+    }
   });
 
 export function all<T>(abortables: [AbortableLike<T>]): Abortable<[T]>

@@ -12,17 +12,19 @@ Or if using npm
 
 ## Usage
 
+Check out the [demo](https://dean177.github.io/higher-order-async/) and the [example](https://github.com/Dean177/higher-order-async/tree/master/packages/with-async-resource/example) folder.
+
 Using typescript
 
 ```typescript jsx
 // ExampleComponent.tsx
 import * as React from 'react';
 import { AsyncProps, withAsyncResource } from 'with-async-resource';
+import { apiCall } from './api';
 
 type TestAsyncValue = { chocolate: number };
 type TestComponentOwnProps = { quantity: number };
-type Props = TestComponentOwnProps & AsyncProps<TestAsyncValue>;
-export const ExampleComponent = (props: Props) =>
+export const ExampleComponent = (props: TestComponentOwnProps & AsyncProps<TestAsyncValue>) =>
   <div>
     <div className="quantity">{props.quantity}</div>
     <div className="error">{props.async.error == null}</div>
@@ -30,13 +32,13 @@ export const ExampleComponent = (props: Props) =>
     <div className="result">{props.async.result == null}</div>
   </div>;
 
-export const EnhancedComponent = withAsyncResource(
-  (props: TestComponentOwnProps): Promise<TestAsyncValue> => apiCall(props.quantity)
-)(TestComponent)
+const enhance = withAsyncResource((props: TestComponentOwnProps): Promise<TestAsyncValue> => apiCall(props.quantity))     
+    
+export const EnhancedComponent: React.ComponentType<TestComponentOwnProps> = enhance(ExampleComponent)
 
 // ExampleOtherComponent.tsx
 import * as React from 'react';
-import { EnhancedComponent } from './TestComponent';
+import { EnhancedComponent } from './ExampleComponent';
 
 export const ExampleOtherComponent = () =>
   <div>
