@@ -1,5 +1,7 @@
 # higher-order-async
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Dean177/higher-order-async.svg)](https://greenkeeper.io/)
+
 The packages in this repository are managed with [lerna](https://github.com/lerna/lerna)
 
 Each package contains its own readme
