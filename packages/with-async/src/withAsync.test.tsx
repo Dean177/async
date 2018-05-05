@@ -1,9 +1,9 @@
 import { Abortable } from 'abortable';
 import { mount } from 'enzyme';
 import * as React from 'react';
-import { AsyncProps, withAsyncResource } from './withAsyncResource';
+import { AsyncProps, withAsync } from './withAsync';
 
-describe('withAsyncResource', () => {
+describe('withAsync', () => {
   afterAll(jest.useRealTimers);
   beforeAll(jest.useFakeTimers);
 
@@ -20,7 +20,7 @@ describe('withAsyncResource', () => {
 
   it('executes its abortableProducer, passing the components props as an argument on mount', () => {
     const producerSpy = jest.fn(() => new Promise(() => {}));
-    const EnhancedComponent = withAsyncResource<TestComponentOwnProps, TestAsyncValue>(
+    const EnhancedComponent = withAsync<TestComponentOwnProps, TestAsyncValue>(
       producerSpy
     )(TestComponent);
     mount(<EnhancedComponent quantity={1} />);
@@ -31,7 +31,7 @@ describe('withAsyncResource', () => {
 
   it('provides a loading state of true when the value has not yet been resolved', () => {
     const producerSpy = jest.fn(() => new Promise(() => {}));
-    const EnhancedComponent = withAsyncResource<TestComponentOwnProps, TestAsyncValue>(
+    const EnhancedComponent = withAsync<TestComponentOwnProps, TestAsyncValue>(
       producerSpy
     )(TestComponent);
 
@@ -46,7 +46,7 @@ describe('withAsyncResource', () => {
   it('displays its content, providing the promise resolution as a prop', () => {
     const result = { chocolate: 5 };
     const promise: Promise<TestAsyncValue> = new Promise((resolve) => resolve(result));
-    const EnhancedComponent = withAsyncResource<TestComponentOwnProps, TestAsyncValue>(() => promise)(TestComponent);
+    const EnhancedComponent = withAsync<TestComponentOwnProps, TestAsyncValue>(() => promise)(TestComponent);
 
     const wrapper = mount(<EnhancedComponent quantity={1} />);
     jest.runOnlyPendingTimers();
@@ -65,7 +65,7 @@ describe('withAsyncResource', () => {
   it('provides the error if the promise is rejected', () => {
     const reason = new Error('fail');
     const promise = new Promise((resolve, reject) => setTimeout(() => reject(reason), 0)) as any;
-    const EnhancedComponent = withAsyncResource<TestComponentOwnProps, TestAsyncValue>(() => promise)(TestComponent);
+    const EnhancedComponent = withAsync<TestComponentOwnProps, TestAsyncValue>(() => promise)(TestComponent);
 
     const wrapper = mount(<EnhancedComponent quantity={1} />);
     wrapper.setState({ error: reason, isLoading: false });
@@ -82,7 +82,7 @@ describe('withAsyncResource', () => {
     let abortablePromise = new Promise(() => {}) as Abortable<TestAsyncValue>;
     abortablePromise.abort = jest.fn();
 
-    const EnhancedComponent = withAsyncResource<TestComponentOwnProps, TestAsyncValue>(
+    const EnhancedComponent = withAsync<TestComponentOwnProps, TestAsyncValue>(
       () => abortablePromise
     )(TestComponent);
 
@@ -95,9 +95,9 @@ describe('withAsyncResource', () => {
   it('will re-call its promise producer if props are updated and predicate is true', () => {
     const producerSpy = jest.fn(() => new Promise(() => {}));
     const reevaluateSpy = jest.fn((props, nextProps) => nextProps.quantity > 5);
-    const EnhancedComponent = withAsyncResource<TestComponentOwnProps, TestAsyncValue>(
+    const EnhancedComponent = withAsync<TestComponentOwnProps, TestAsyncValue>(
       producerSpy,
-      reevaluateSpy
+      { shouldReProduce: reevaluateSpy },
     )(TestComponent);
     const wrapper = mount(<EnhancedComponent quantity={1} />);
 
@@ -116,9 +116,9 @@ describe('withAsyncResource', () => {
 
     });
     const reevaluateSpy = jest.fn((props, nextProps) => nextProps.quantity > 5);
-    const EnhancedComponent = withAsyncResource<TestComponentOwnProps, TestAsyncValue>(
+    const EnhancedComponent = withAsync<TestComponentOwnProps, TestAsyncValue>(
       producerSpy,
-      reevaluateSpy
+      { shouldReProduce: reevaluateSpy },
     )(TestComponent);
     const wrapper = mount(<EnhancedComponent quantity={1} />);
     expect(producerSpy).toHaveBeenCalledWith({ quantity: 1 });
@@ -131,7 +131,7 @@ describe('withAsyncResource', () => {
 
   it('will not re-call its promise producer if props are updated and predicate is not provided', () => {
     const producerSpy = jest.fn(() => new Promise(() => {}));
-    const EnhancedComponent = withAsyncResource<TestComponentOwnProps, TestAsyncValue>(
+    const EnhancedComponent = withAsync<TestComponentOwnProps, TestAsyncValue>(
       producerSpy
     )(TestComponent);
     const wrapper = mount(<EnhancedComponent quantity={1} />);
@@ -146,9 +146,9 @@ describe('withAsyncResource', () => {
   it('will not re-call its promise producer if props are updated and predicate returns false', () => {
     const producerSpy = jest.fn(() => new Promise(() => {}));
     const reevaluateSpy = jest.fn((props, nextProps) => nextProps.quantity > 5);
-    const EnhancedComponent = withAsyncResource<TestComponentOwnProps, TestAsyncValue>(
+    const EnhancedComponent = withAsync<TestComponentOwnProps, TestAsyncValue>(
       producerSpy,
-      reevaluateSpy,
+      { shouldReProduce: reevaluateSpy },
     )(TestComponent);
     const wrapper = mount(<EnhancedComponent quantity={1} />);
 

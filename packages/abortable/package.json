@@ -3,35 +3,7 @@
   "name": "abortable",
   "dependencies": {},
   "devDependencies": {
-    "@types/jest": "20.0.5",
-    "jest": "20.0.4",
-    "ts-jest": "20.0.7",
     "typescript": "2.8.3"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}"
-    ],
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/src/index.ts"
-    ],
-    "coverageReporters": [
-      "text"
-    ],
-    "mapCoverage": true,
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ],
-    "testEnvironment": "node",
-    "testMatch": [
-      "<rootDir>/src/**/?(*.)(spec|test).ts?(x)"
-    ],
-    "transform": {
-      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-    }
   },
   "license": "MIT",
   "files": [
@@ -41,10 +13,7 @@
   "types": "dist/abortable.d.ts",
   "scripts": {
     "build": "rm -rf dist && tsc",
-    "build:dev": "tsc --noEmit --pretty --watch",
-    "dev": "concurrently -n \"make,test\" \"npm run build:dev\" \"npm run test:dev\"",
-    "test": "jest --coverage",
-    "test:dev": "jest --watch",
+    "dev": "tsc --noEmit --watch",
     "prepublish": "npm run test && npm run build"
   },
   "version": "0.0.5"

@@ -1,0 +1,32 @@
+{
+  "dependencies": {
+    "abortable": "0.0.5"
+  },
+  "peerDependencies": {
+    "react": "15.x || 16.x",
+    "react-dom": "15.x || 16.x"
+  },
+  "devDependencies": {
+    "@types/prop-types": "15.5.2",
+    "@types/react": "16.3.13",
+    "@types/react-dom": "16.0.5",
+    "react": "16.3.2",
+    "react-dom": "16.3.2",
+    "react-test-renderer": "16.3.2",
+    "typescript": "2.8.3"
+  },
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/withAsync.js",
+  "types": "dist/withAsync.d.ts",
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "build:docs": "rm -rf ../../docs && cd example && yarn && yarn build && cp -r ./build ../../../docs",
+    "dev": "tsc --noEmit --watch",
+    "prepublish": "npm run build"
+  },
+  "name": "with-async",
+  "version": "0.0.0"
+}

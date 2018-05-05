@@ -1,0 +1,23 @@
+{
+  "name": "with-async-documentation",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "16.3.2",
+    "react-codemirror": "^1.0.0",
+    "react-dom": "16.3.2",
+    "with-async": "0.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "8.0.50",
+    "@types/react": "16.3.13",
+    "@types/react-codemirror": "1.0.1",
+    "@types/react-dom": "16.0.5"
+  },
+  "//react-scripts-ts": "2.8.0",
+  "homepage": "https://dean177.github.io/higher-order-asnc",
+  "scripts": {
+    "build": "react-scripts-ts build",
+    "start": "react-scripts-ts start"
+  }
+}

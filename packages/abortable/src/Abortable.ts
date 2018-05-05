@@ -4,15 +4,17 @@ export type Abortable<T> = Promise<T> & { abort(): void };
 
 export type Cancelable<T> = Promise<T> & { cancel(): void };
 
-export type AbortableLike<T> = Abortable<T> | Cancelable<T> | Promise<T> | T;
+export type Thenable<T> = Abortable<T> | Cancelable<T> | Promise<T>;
 
-const abort = (abortables: Array<AbortableLike<any>>): void => {
-  for (const abortable of abortables) {
-    if (abortable.abort != null) {
-      return abortable.abort();
+export type AbortableLike<T> = Thenable<T> | T;
+
+export const abort = (thenables: Array<Thenable<any>>): void => {
+  for (const thenable of thenables) {
+    if (thenable.hasOwnProperty('abort')) {
+      (thenable as Abortable<any>).abort();
     }
-    if (abortable.cancel != null) {
-      return abortable.cancel();
+    if (thenable.hasOwnProperty('cancel')) {
+      (thenable as Cancelable<any>).cancel();
     }
   }
 };
@@ -74,7 +76,7 @@ export function race(abortables: Array<Abortable<any>>): Abortable<any> {
         .catch(reason => {
           abort(abortables);
           reject(reason);
-        })
+        });
     }
   }) as Abortable<any>;
 

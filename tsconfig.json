@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "commonjs",
+    "noEmitOnError": true,
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "sourceMap": false,
+    "strict": true,
+    "strictFunctionTypes": true,
+    "target": "es2015",
+    "paths": {
+      "*": ["packages/*/src"]
+    },
+    "pretty": true
+  }
+}

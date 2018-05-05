@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AsyncProps, withAsyncResource } from 'with-async-resource';
+import { AsyncProps, withAsyncResource } from '../../';
 import './App.css';
 
 const delay = (milliseconds: number): Promise<void> =>

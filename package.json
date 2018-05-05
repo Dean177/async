@@ -1,9 +1,52 @@
 {
-  "devDependencies": {
-      "lerna": "^2.0.0"
+  "dependencies": {
+    "@types/enzyme": "3.1.10",
+    "@types/jest": "21.1.4",
+    "enzyme": "3.3.0",
+    "enzyme-adapter-react-16": "1.1.1",
+    "jest": "22.4.3",
+    "jsdom": "11.10.0",
+    "lerna": "2.5.1",
+    "prettier": "1.12.1",
+    "raf": "3.4.0",
+    "rimraf": "2.6.2",
+    "ts-jest": "22.4.4",
+    "tslint": "5.10.0",
+    "tslint-react": "3.2.0",
+    "typescript": "2.8.3"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "packages/*/src/**/*.{js,jsx,ts,tsx}"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/config/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/config/styleMock.js"
+    },
+    "setupTestFrameworkScriptFile": "<rootDir>/setupTestFramework.js",
+    "testMatch": [
+      "<rootDir>/packages/*/src/**/?(*.)(spec|test).ts?(x)"
+    ],
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    }
   },
   "license": "MIT",
+  "private": true,
   "scripts": {
-    "bootstrap": "lerna bootstrap"
-  }
+    "bootstrap": "lerna bootstrap",
+    "build:docs": "rm -rf ./docs && cd packages/with-async-documentation && yarn && yarn build && mv ./build ../../docs",
+    "clean": "rimraf packages/**/dist docs",
+    "lint": "tslint packages/*/src/**/*.ts packages/*/src/**/*.tsx",
+    "prettier": "prettier --write packages/*/src/**/*.{ts|tsx}",
+    "test": "jest"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }
