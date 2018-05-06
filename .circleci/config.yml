@@ -16,17 +16,14 @@ jobs:
           - v1-dependencies-
 
       - run: yarn install --frozen-lockfile
-      - run: yarn bootstrap
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
+      - run: yarn bootstrap
       - run: yarn lint
       - run: yarn prettier --list-different
       - run: yarn build
       - run: yarn test --coverage
-
-
-

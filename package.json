@@ -52,7 +52,6 @@
     "clean": "rimraf packages/**/dist docs",
     "lint": "tslint packages/*/src/**/*.ts packages/*/src/**/*.tsx",
     "prettier": "prettier --write \"packages/*/src/**/*.{ts,tsx}\"",
-    "prepublish": "yarn build && yarn test",
     "test": "jest"
   },
   "workspaces": [
