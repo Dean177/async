@@ -76,3 +76,8 @@ export const ExampleOtherComponent = () =>
   </div>
 ```
 
+## With recompose
+
+## Polling for changes
+
+## Imperative api

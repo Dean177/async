@@ -2,13 +2,17 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "./",
+    "jsx": "react",
+    "lib": ["dom", "es6"],
     "outDir": "dist",
     "rootDir": "src"
   },
   "exclude": [
-    "dist",
-    "example",
     "node_modules",
-    "**/*.test.ts"
+    "dist",
+    "scripts",
+    "webpack",
+    "jest",
+    "src/setupTests.ts"
   ]
 }
