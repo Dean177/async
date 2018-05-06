@@ -16,7 +16,7 @@ const LabelledValue = (props: { label: string; children: React.ReactNode }) => (
 );
 
 type TestAsyncValue = { chocolate: number };
-type TestComponentOwnProps = { quantity: number };
+export type TestComponentOwnProps = { quantity: number };
 export const ExampleComponent = (props: TestComponentOwnProps & AsyncProps<TestAsyncValue>) => (
   <div className="ExampleComponent">
     <LabelledValue label="Has error">{(props.async.error != null) + ''}</LabelledValue>
@@ -57,7 +57,7 @@ const withAsyncCustom = <OP, T>(
   promiseProducer: (props: OP) => Promise<T>,
   shouldReRequest?: (props: OP, nextProps: OP) => boolean
 ) => (WrappedComponent: React.ComponentType<OP & AsyncCustom<T>>): React.ComponentType<OP> =>
-  withAsync(promiseProducer, shouldReRequest)((props: OP & AsyncProps<T>) => {
+  withAsync(promiseProducer, { shouldReProduce: shouldReRequest })((props: OP & AsyncProps<T>) => {
     const { error, isLoading, result } = props.async;
     if (isLoading) {
       return React.createElement(ProgressIndicator);

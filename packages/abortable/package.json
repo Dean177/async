@@ -13,7 +13,7 @@
   "scripts": {
     "build": "rm -rf dist && tsc",
     "dev": "tsc --noEmit --watch",
-    "prepublish": "npm run test && npm run build"
+    "prepublish": "npm run build"
   },
   "version": "0.1.0"
 }
