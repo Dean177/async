@@ -25,5 +25,5 @@ jobs:
       - run: yarn bootstrap
       - run: yarn lint
       - run: yarn prettier --list-different
-      - run: yarn build
+# TODO      - run: yarn build
       - run: yarn test --coverage

@@ -44,7 +44,7 @@ const ProgressIndicator = () => (
   </div>
 );
 
-const ErrorBox = (props: { error: Error }) => (
+const ErrorBox = (props: { error: Error | null }) => (
   <div className="ErrorBox">
     <p>
       Oh no, something has genuinely gone wrong. If this isn't intermittent please file an issue.
