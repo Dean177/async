@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "abortable": "0.0.5"
+    "abortable": "^0.1.0"
   },
   "peerDependencies": {
     "react": "15.x || 16.x",
@@ -29,5 +29,5 @@
     "prepublish": "npm run build"
   },
   "name": "with-async",
-  "version": "0.0.0"
+  "version": "0.1.0"
 }

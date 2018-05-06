@@ -4,13 +4,13 @@
   "private": true,
   "homepage": "https://dean177.github.io/higher-order-async",
   "dependencies": {
-    "abortable": "0.0.5",
+    "abortable": "^0.1.0",
     "abortable-networking": "0.0.7",
     "react": "16.3.2",
     "react-dom": "16.3.2",
-    "with-async": "0.0.0"
+    "with-async": "^0.1.0"
   },
-  "TODO":"React-scripts breaks the test-env",
+  "TODO": "React-scripts breaks the test-env",
   "//devDependencies": {
     "react-scripts-ts": "2.8.0"
   },

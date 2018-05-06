@@ -1,7 +1,6 @@
 {
   "author": "Dean Merchant",
   "name": "abortable",
-  "dependencies": {},
   "devDependencies": {
     "typescript": "2.8.3"
   },
@@ -16,5 +15,5 @@
     "dev": "tsc --noEmit --watch",
     "prepublish": "npm run test && npm run build"
   },
-  "version": "0.0.5"
+  "version": "0.1.0"
 }
