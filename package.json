@@ -50,6 +50,7 @@
     "build": "lerna run build",
     "build:docs": "rm -rf ./docs && cd packages/documentation && yarn && yarn build && mv ./build ../../docs",
     "clean": "rimraf packages/**/dist docs",
+    "lerna": "lerna",
     "lint": "tslint packages/*/src/**/*.ts packages/*/src/**/*.tsx",
     "prettier": "prettier --write \"packages/*/src/**/*.{ts,tsx}\"",
     "test": "jest"
