@@ -22,6 +22,13 @@ allAbortable.then(([resultOne, resultTwo]) => {
 
 allAbortable.abort();
 
+const mapAbortable = map({ a: requestA, b: requestB })
+mapAbortable.then(result => {
+  console.log(result.a, result.b);
+});
+
+allAbortable.abort();
+
 const raceAbortable = race([requestOne, requestTwo])
 raceAbortable.then((result) => {
   console.log(result);

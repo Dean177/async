@@ -6,11 +6,9 @@ export type Cancelable<T> = Promise<T> & { cancel(): void };
 
 export type Thenable<T> = Abortable<T> | Cancelable<T> | Promise<T>;
 
-export type ThenableOrValue<T> = Thenable<T> | T;
-
 export const makeThenable = <T>(thenable: Thenable<T> | T): Thenable<T> =>
   thenable.hasOwnProperty('then')
-    ? // If the abortable is a superagent request the request wont be sent until it has been then'd
+    ? // If the abortable is a `superagent` request the request wont be sent until it has been then'd
       (thenable as Promise<T>).then(identity)
     : Promise.resolve(thenable);
 
@@ -25,80 +23,72 @@ export const abort = (thenables: Array<Thenable<any>>): void => {
   }
 };
 
-export function all<T>(thenables: [ThenableOrValue<T>]): Abortable<[T]>;
-export function all<T1, T2>(
-  thenables: [ThenableOrValue<T1>, ThenableOrValue<T2>]
-): Abortable<[T1, T2]>;
+export function all<T>(thenables: [Thenable<T>]): Abortable<[T]>;
+export function all<T1, T2>(thenables: [Thenable<T1>, Thenable<T2>]): Abortable<[T1, T2]>;
 export function all<T1, T2, T3>(
-  thenables: [ThenableOrValue<T1>, ThenableOrValue<T2> | ThenableOrValue<T3>]
+  thenables: [Thenable<T1>, Thenable<T2>, Thenable<T3>]
 ): Abortable<[T1, T2, T3]>;
 export function all<T1, T2, T3, T4>(
-  thenables: [ThenableOrValue<T1>, ThenableOrValue<T2> | ThenableOrValue<T3>, ThenableOrValue<T4>]
+  thenables: [Thenable<T1>, Thenable<T2>, Thenable<T3>, Thenable<T4>]
 ): Abortable<[T1, T2, T3, T4]>;
 export function all<T1, T2, T3, T4, T5>(
-  thenables: [
-    ThenableOrValue<T1>,
-    ThenableOrValue<T2> | ThenableOrValue<T3>,
-    ThenableOrValue<T4>,
-    ThenableOrValue<T5>
-  ]
+  thenables: [Thenable<T1>, Thenable<T2>, Thenable<T3>, Thenable<T4>, Thenable<T5>]
 ): Abortable<[T1, T2, T3, T4, T5]>;
 export function all<T1, T2, T3, T4, T5, T6>(
-  thenables: [
-    ThenableOrValue<T1>,
-    ThenableOrValue<T2> | ThenableOrValue<T3>,
-    ThenableOrValue<T4>,
-    ThenableOrValue<T5>,
-    ThenableOrValue<T6>
-  ]
+  thenables: [Thenable<T1>, Thenable<T2>, Thenable<T3>, Thenable<T4>, Thenable<T5>, Thenable<T6>]
 ): Abortable<[T1, T2, T3, T4, T5, T6]>;
 export function all<T1, T2, T3, T4, T5, T6, T7>(
   thenables: [
-    ThenableOrValue<T1>,
-    ThenableOrValue<T2> | ThenableOrValue<T3>,
-    ThenableOrValue<T4>,
-    ThenableOrValue<T5>,
-    ThenableOrValue<T6>,
-    ThenableOrValue<T7>
+    Thenable<T1>,
+    Thenable<T2>,
+    Thenable<T3>,
+    Thenable<T4>,
+    Thenable<T5>,
+    Thenable<T6>,
+    Thenable<T7>
   ]
 ): Abortable<[T1, T2, T3, T4, T5, T6, T7]>;
 export function all<T1, T2, T3, T4, T5, T6, T7, T8>(
   thenables: [
-    ThenableOrValue<T1>,
-    ThenableOrValue<T2> | ThenableOrValue<T3>,
-    ThenableOrValue<T4>,
-    ThenableOrValue<T5>,
-    ThenableOrValue<T6>,
-    ThenableOrValue<T7>,
-    ThenableOrValue<T8>
+    Thenable<T1>,
+    Thenable<T2>,
+    Thenable<T3>,
+    Thenable<T4>,
+    Thenable<T5>,
+    Thenable<T6>,
+    Thenable<T7>,
+    Thenable<T8>
   ]
 ): Abortable<[T1, T2, T3, T4, T5, T6, T7, T8]>;
 export function all<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
   thenables: [
-    ThenableOrValue<T1>,
-    ThenableOrValue<T2> | ThenableOrValue<T3>,
-    ThenableOrValue<T4>,
-    ThenableOrValue<T5>,
-    ThenableOrValue<T6>,
-    ThenableOrValue<T7>,
-    ThenableOrValue<T8>,
-    ThenableOrValue<T9>
+    Thenable<T1>,
+    Thenable<T2>,
+    Thenable<T3>,
+    Thenable<T4>,
+    Thenable<T5>,
+    Thenable<T6>,
+    Thenable<T7>,
+    Thenable<T8>,
+    Thenable<T9>
   ]
 ): Abortable<[T1, T2, T3, T4, T5, T6, T7, T8, T9]>;
 export function all<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
   thenables: [
-    ThenableOrValue<T1>,
-    ThenableOrValue<T2> | ThenableOrValue<T3>,
-    ThenableOrValue<T4>,
-    ThenableOrValue<T5>,
-    ThenableOrValue<T6>,
-    ThenableOrValue<T7>,
-    ThenableOrValue<T8>,
-    ThenableOrValue<T9>,
-    ThenableOrValue<T10>
+    Thenable<T1>,
+    Thenable<T2>,
+    Thenable<T3>,
+    Thenable<T4>,
+    Thenable<T5>,
+    Thenable<T6>,
+    Thenable<T7>,
+    Thenable<T8>,
+    Thenable<T9>,
+    Thenable<T10>
   ]
 ): Abortable<[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]>;
-export function all(thenables: Array<any | Abortable<any>>): Abortable<Array<any>> {
+export function all<T>(thenables: Array<Thenable<T>>): Abortable<Array<T>>;
+export function all(thenables: Array<Thenable<any>>): Abortable<Array<any>> {
   const initiatedRequests: Array<Promise<any>> = thenables.map(makeThenable);
   const results: Array<any> = [];
   const mergedAbortable: Promise<any> = initiatedRequests.reduce(
@@ -119,65 +109,99 @@ export function all(thenables: Array<any | Abortable<any>>): Abortable<Array<any
   return result;
 }
 
-export function race<T>(thenables: [ThenableOrValue<T>]): Abortable<[T]>;
-export function race<T1, T2>(
-  thenables: [ThenableOrValue<T1>, ThenableOrValue<T2>]
-): Abortable<T1 | T2>;
+export function map<T extends {}>(thenablesMap: { [K in keyof T]: Thenable<T[K]>;
+}): Abortable<T> {
+  const thenables = Object.keys(thenablesMap).map(k => thenablesMap[k as keyof T]);
+  const keyPromiseValuePairs = Object.keys(thenablesMap).map((key: string): Promise<
+    [string, any]
+  > => makeThenable(thenablesMap[key as keyof T])
+    .then((value: any): [string, any] => [key, value])
+    .catch(reason => {
+      abort(thenables);
+      throw reason;
+    }));
+  const keyValuePairsPromise: Abortable<Array<[string, any]>> = all<[string, any]>(
+    keyPromiseValuePairs
+  );
+  const initialValue = {} as { [keys: string]: any };
+  const result = keyValuePairsPromise.then((keyValuePairs: Array<[string, any]>): {
+    [keys: string]: any;
+  } =>
+    keyValuePairs.reduce((obj: { [keys: string]: any }, [key, val]): { [keys: string]: any } => {
+      obj[key] = val;
+      return obj;
+    }, initialValue)
+  ) as Abortable<{}>;
+  result.abort = () => abort(thenables);
+  return result as Abortable<T>;
+}
+
+export function race<T>(thenables: [Thenable<T>]): Abortable<[T]>;
+export function race<T1, T2>(thenables: [Thenable<T1>, Thenable<T2>]): Abortable<T1 | T2>;
 export function race<T1, T2, T3>(
-  thenables: [ThenableOrValue<T1>, ThenableOrValue<T2> | ThenableOrValue<T3>]
+  thenables: [Thenable<T1>, Thenable<T2>, Thenable<T3>]
 ): Abortable<T1 | T2 | T3>;
 export function race<T1, T2, T3, T4>(
-  thenables: [ThenableOrValue<T1>, ThenableOrValue<T2> | ThenableOrValue<T3>, ThenableOrValue<T4>]
+  thenables: [Thenable<T1>, Thenable<T2>, Thenable<T3>, Thenable<T4>]
 ): Abortable<T1 | T2 | T3 | T4>;
 export function race<T1, T2, T3, T4, T5>(
-  thenables: [
-    ThenableOrValue<T1>,
-    ThenableOrValue<T2> | ThenableOrValue<T3>,
-    ThenableOrValue<T4>,
-    ThenableOrValue<T5>
-  ]
+  thenables: [Thenable<T1>, Thenable<T2>, Thenable<T3>, Thenable<T4>, Thenable<T5>]
 ): Abortable<T1 | T2 | T3 | T4 | T5>;
 export function race<T1, T2, T3, T4, T5, T6>(
-  thenables: [
-    ThenableOrValue<T1>,
-    ThenableOrValue<T2> | ThenableOrValue<T3>,
-    ThenableOrValue<T4>,
-    ThenableOrValue<T5>
-  ]
+  thenables: [Thenable<T1>, Thenable<T2>, Thenable<T3>, Thenable<T4>, Thenable<T5>, Thenable<T6>]
 ): Abortable<T1 | T2 | T3 | T4 | T5>;
 export function race<T1, T2, T3, T4, T5, T6, T7>(
   thenables: [
-    ThenableOrValue<T1>,
-    ThenableOrValue<T2> | ThenableOrValue<T3>,
-    ThenableOrValue<T4>,
-    ThenableOrValue<T5>
+    Thenable<T1>,
+    Thenable<T2>,
+    Thenable<T3>,
+    Thenable<T4>,
+    Thenable<T5>,
+    Thenable<T6>,
+    Thenable<T7>
   ]
-): Abortable<T1 | T2 | T3 | T4 | T5>;
+): Abortable<T1 | T2 | T3 | T4 | T5 | T6 | T7>;
 export function race<T1, T2, T3, T4, T5, T6, T7, T8>(
   thenables: [
-    ThenableOrValue<T1>,
-    ThenableOrValue<T2> | ThenableOrValue<T3>,
-    ThenableOrValue<T4>,
-    ThenableOrValue<T5>
+    Thenable<T1>,
+    Thenable<T2>,
+    Thenable<T3>,
+    Thenable<T4>,
+    Thenable<T5>,
+    Thenable<T6>,
+    Thenable<T7>,
+    Thenable<T8>
   ]
-): Abortable<T1 | T2 | T3 | T4 | T5>;
+): Abortable<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8>;
 export function race<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
   thenables: [
-    ThenableOrValue<T1>,
-    ThenableOrValue<T2> | ThenableOrValue<T3>,
-    ThenableOrValue<T4>,
-    ThenableOrValue<T5>
+    Thenable<T1>,
+    Thenable<T2>,
+    Thenable<T3>,
+    Thenable<T4>,
+    Thenable<T5>,
+    Thenable<T6>,
+    Thenable<T7>,
+    Thenable<T8>,
+    Thenable<T9>
   ]
 ): Abortable<T1 | T2 | T3 | T4 | T5>;
 export function race<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
   thenables: [
-    ThenableOrValue<T1>,
-    ThenableOrValue<T2> | ThenableOrValue<T3>,
-    ThenableOrValue<T4>,
-    ThenableOrValue<T5>
+    Thenable<T1>,
+    Thenable<T2>,
+    Thenable<T3>,
+    Thenable<T4>,
+    Thenable<T5>,
+    Thenable<T6>,
+    Thenable<T7>,
+    Thenable<T8>,
+    Thenable<T9>,
+    Thenable<T10>
   ]
-): Abortable<T1 | T2 | T3 | T4 | T5>;
-export function race(thenables: Array<Abortable<any>>): Abortable<any> {
+): Abortable<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10>;
+export function race<T>(thenables: Array<Thenable<T>>): Abortable<Array<T>>;
+export function race(thenables: Array<Thenable<any>>): Abortable<any> {
   const result = new Promise((resolve, reject) => {
     for (const thenable of thenables) {
       thenable

@@ -22,6 +22,9 @@
     "collectCoverageFrom": [
       "packages/*/src/**/*.{js,jsx,ts,tsx}"
     ],
+    "coveragePathIgnorePatterns": [
+      "packages/documentation"
+    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -52,6 +55,7 @@
     "build": "(cd packages/abortable && yarn build) && (cd packages/abortable-networking && yarn build) && (cd packages/with-async && yarn build)",
     "build:docs": "rm -rf ./docs && cd packages/documentation && yarn && yarn build && mv ./build ../../docs",
     "clean": "rimraf packages/**/dist docs",
+    "lerna": "lerna",
     "lint": "tslint packages/*/src/**/*.ts packages/*/src/**/*.tsx",
     "prettier": "prettier --write \"packages/*/src/**/*.{ts,tsx}\"",
     "prepublishOnly": "lerna run prepublishOnly",
