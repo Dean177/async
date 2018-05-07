@@ -8,8 +8,8 @@
   "files": [
     "dist"
   ],
-  "main": "dist/abortable.js",
-  "types": "dist/abortable.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "rm -rf dist && tsc",
     "dev": "tsc --noEmit --watch",

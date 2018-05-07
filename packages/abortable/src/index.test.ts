@@ -1,4 +1,4 @@
-import * as Abortable from './abortable';
+import * as Abortable from './index';
 
 describe('Abortable.abort', () => {
   it('iterates the thenables and calls the abort or cancel method if present', () => {

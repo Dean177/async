@@ -49,6 +49,7 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap",
+    "build": "(cd packages/abortable && yarn build) && (cd packages/abortable-networking && yarn build) && (cd packages/with-async && yarn build)",
     "build:docs": "rm -rf ./docs && cd packages/documentation && yarn && yarn build && mv ./build ../../docs",
     "clean": "rimraf packages/**/dist docs",
     "lint": "tslint packages/*/src/**/*.ts packages/*/src/**/*.tsx",
