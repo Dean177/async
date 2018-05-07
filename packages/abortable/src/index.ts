@@ -109,17 +109,18 @@ export function all(thenables: Array<Thenable<any>>): Abortable<Array<any>> {
   return result;
 }
 
-export function map<T extends {}>(thenablesMap: { [K in keyof T]: Thenable<T[K]>;
-}): Abortable<T> {
+export function map<T extends {}>(thenablesMap: { [K in keyof T]: Thenable<T[K]> }): Abortable<T> {
   const thenables = Object.keys(thenablesMap).map(k => thenablesMap[k as keyof T]);
   const keyPromiseValuePairs = Object.keys(thenablesMap).map((key: string): Promise<
     [string, any]
-  > => makeThenable(thenablesMap[key as keyof T])
-    .then((value: any): [string, any] => [key, value])
-    .catch(reason => {
-      abort(thenables);
-      throw reason;
-    }));
+  > =>
+    makeThenable(thenablesMap[key as keyof T])
+      .then((value: any): [string, any] => [key, value])
+      .catch(reason => {
+        abort(thenables);
+        throw reason;
+      })
+  );
   const keyValuePairsPromise: Abortable<Array<[string, any]>> = all<[string, any]>(
     keyPromiseValuePairs
   );
