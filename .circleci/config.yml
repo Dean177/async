@@ -19,6 +19,7 @@ jobs:
       - run: yarn run lerna bootstrap
 
       - run: yarn build
+      - run: yarn build:docs
       - run: yarn lint
       - run: yarn prettier --list-different
       - run: yarn test --coverage
