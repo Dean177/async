@@ -20,7 +20,7 @@
   "scripts": {
     "build": "rm -rf dist && tsc",
     "dev": "tsc --noEmit --watch",
-    "prepublish": "yarn build"
+    "prepublishOnly": "yarn build"
   },
   "version": "0.1.0"
 }

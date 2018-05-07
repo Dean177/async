@@ -2,28 +2,30 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:9
 
     working_directory: ~/repo
 
     steps:
       - checkout
+      - run: yarn --version
 
-#      - restore_cache:
-#          keys:
-#          - v1-dependencies-{{ checksum "package.json" }}
-#          # fallback to using the latest cache if no exact match is found
-#          - v1-dependencies-
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "yarn.lock" }}
+          - v1-dependencies-
 
-      - run: npm install
-      - run: npm run bootstrap
+      - run: yarn install --frozen-lockfile
+      - run: yarn run lerna bootstrap
 
-#      - save_cache:
-#          paths:
-#            - node_modules
-#          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: cd packages/abortable && yarn build
+      - run: cd packages/abortable-networking && yarn build
+      - run: cd packages/with-async && yarn build
+      - run: yarn lint
+      - run: yarn prettier --list-different
+      - run: yarn test --coverage
 
-      - run: npm run lint
-      - run: npm run prettier --list-different
-      - run: npm run build
-      - run: npm run test --coverage
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
