@@ -15,15 +15,15 @@ jobs:
 #          # fallback to using the latest cache if no exact match is found
 #          - v1-dependencies-
 
-      - run: yarn install --frozen-lockfile
-      - run: yarn lerna clean --yes && yarn bootstrap
+      - run: npm install
+      - run: npm run bootstrap
 
 #      - save_cache:
 #          paths:
 #            - node_modules
 #          key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: yarn lint
-      - run: yarn prettier --list-different
-      - run: yarn build
-      - run: yarn test --coverage
+      - run: npm run lint
+      - run: npm run prettier --list-different
+      - run: npm run build
+      - run: npm run test --coverage
