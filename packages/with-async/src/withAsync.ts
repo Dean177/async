@@ -30,7 +30,7 @@ export const withAsync = <OP, T>(
 
     state = {
       error: null,
-      isLoading: false,
+      isLoading: true,
       result: null
     };
 
