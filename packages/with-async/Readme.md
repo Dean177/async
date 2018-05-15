@@ -1,4 +1,4 @@
-# with-async-resource
+# with-async
 
 Avoid boilerplate and a common pitfalls when working with promise producing functions in react
 
