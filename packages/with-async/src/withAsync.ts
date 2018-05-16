@@ -69,7 +69,7 @@ export const withAsync = <OP, T>(
       this.executeThenableProducer(this.props);
       if (options && options.pollInterval) {
         this.pollLoop = (setInterval(
-          () => this.executeThenableProducer(this.props),
+          () => this.executeThenableSilent(this.props),
           options.pollInterval
         ) as any) as number;
       }
