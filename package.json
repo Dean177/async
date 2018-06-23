@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@types/enzyme": "3.1.10",
+    "@types/enzyme": "3.1.11",
     "@types/jest": "21.1.4",
     "enzyme": "3.3.0",
     "enzyme-adapter-react-16": "1.1.1",
