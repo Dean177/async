@@ -4,6 +4,7 @@ import {
   ComponentClass,
   ComponentType,
   createElement,
+  ComponentElement,
   ReactNode
 } from 'react';
 
