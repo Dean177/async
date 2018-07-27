@@ -138,5 +138,5 @@ type RenderProps<T> = {
 };
 export const WithAsync = <T>({ render, producer }: RenderProps<T>) =>
   createElement(
-    withAsync<{}, T>(producer)((props: State<T> & ImperativeApi) => render(props.async))
+    withAsync<{}, T>(producer)((props: AsyncProps<T>) => render(props.async))
   );
