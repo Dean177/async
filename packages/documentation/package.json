@@ -1,6 +1,6 @@
 {
   "name": "documentation",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "private": true,
   "homepage": "https://dean177.github.io/higher-order-async",
   "dependencies": {
@@ -9,7 +9,7 @@
     "react": "16.3.2",
     "react-dom": "16.3.2",
     "react-hot-loader": "4.1.2",
-    "with-async": "^0.4.0"
+    "with-async": "^0.5.0"
   },
   "devDependencies": {
     "@dean177/react-scripts-ts": "2.15.1",
