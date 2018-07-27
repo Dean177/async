@@ -1,5 +1,12 @@
 import { abort, makeThenable, Thenable } from 'abortable';
-import { Component, ComponentClass, ComponentType, createElement, ReactChild, ReactNode } from 'react';
+import {
+  Component,
+  ComponentClass,
+  ComponentType,
+  createElement,
+  ReactChild,
+  ReactNode
+} from 'react';
 
 export type State<T> = {
   error: Error | null;
@@ -7,7 +14,7 @@ export type State<T> = {
   result: T | null;
 };
 
-export type ImperativeApi = { call: (setIsLoading?: boolean) => void }
+export type ImperativeApi = { call: (setIsLoading?: boolean) => void };
 
 export type AsyncProps<T> = {
   async: State<T> & ImperativeApi;
@@ -126,8 +133,10 @@ export const withAsync = <OP, T>(
   };
 
 type RenderProps<T> = {
-  producer: () => Thenable<T>,
-  render: (async: State<T> & ImperativeApi) => ReactChild,
-}
+  producer: () => Thenable<T>;
+  render: (async: State<T> & ImperativeApi) => ReactChild;
+};
 export const WithAsync = <T>({ render, producer }: RenderProps<T>) =>
-  createElement(withAsync<{}, T>(producer)((props: State<T> & ImperativeApi) => render(props.async)));
+  createElement(
+    withAsync<{}, T>(producer)((props: State<T> & ImperativeApi) => render(props.async))
+  );

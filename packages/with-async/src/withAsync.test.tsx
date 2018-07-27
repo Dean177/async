@@ -228,9 +228,10 @@ describe('<WithAsync />', () => {
   it('executes its abortableProducer, passing the components props as an argument on mount', () => {
     const producerSpy = jest.fn(() => new Promise(noop));
     mount(
-      <WithAsync producer={producerSpy} render={(async: State<TestAsyncValue>) =>
-        <TestComponent quantity={1} {...async}/>
-      }/>
+      <WithAsync
+        producer={producerSpy}
+        render={(async: State<TestAsyncValue>) => <TestComponent quantity={1} {...async} />}
+      />
     );
 
     expect(producerSpy).toHaveBeenCalled();
@@ -238,9 +239,10 @@ describe('<WithAsync />', () => {
 
   it('provides a loading state of true when the value has not yet been resolved', () => {
     const wrapper = mount(
-      <WithAsync producer={() => new Promise(noop)} render={(async: State<TestAsyncValue>) =>
-        <TestComponent quantity={1} {...async}/>
-      }/>
+      <WithAsync
+        producer={() => new Promise(noop)}
+        render={(async: State<TestAsyncValue>) => <TestComponent quantity={1} {...async} />}
+      />
     );
 
     expect(wrapper.find<Props>(TestComponent).props().quantity).toBe(1);
@@ -253,11 +255,11 @@ describe('<WithAsync />', () => {
     const result = { chocolate: 5 };
     const promise: Promise<TestAsyncValue> = new Promise(resolve => resolve(result));
 
-
     const wrapper = mount(
-      <WithAsync producer={() => promise} render={(async: State<TestAsyncValue>) =>
-        <TestComponent quantity={1} {...async}/>
-      }/>
+      <WithAsync
+        producer={() => promise}
+        render={(async: State<TestAsyncValue>) => <TestComponent quantity={1} {...async} />}
+      />
     );
     jest.runOnlyPendingTimers();
 
@@ -277,9 +279,10 @@ describe('<WithAsync />', () => {
     abortablePromise.abort = jest.fn();
 
     const wrapper = mount(
-      <WithAsync producer={() => abortablePromise} render={(async: State<TestAsyncValue>) =>
-        <TestComponent quantity={3} {...async}/>
-      }/>
+      <WithAsync
+        producer={() => abortablePromise}
+        render={(async: State<TestAsyncValue>) => <TestComponent quantity={3} {...async} />}
+      />
     );
 
     wrapper.unmount();
@@ -288,16 +291,16 @@ describe('<WithAsync />', () => {
 
   it('provides an imperative API to re call the then producer', () => {
     const producerSpy = jest.fn(() => Promise.resolve(''));
-    let interceptedProps: State<TestAsyncValue> & ImperativeApi
+    let interceptedProps: State<TestAsyncValue> & ImperativeApi;
     const wrapper = mount(
-      <WithAsync producer={producerSpy} render={(async: State<TestAsyncValue> & ImperativeApi) => {
-        interceptedProps = async
-        return <TestComponent quantity={3} {...async}/>
-      }
-
-      }/>
+      <WithAsync
+        producer={producerSpy}
+        render={(async: State<TestAsyncValue> & ImperativeApi) => {
+          interceptedProps = async;
+          return <TestComponent quantity={3} {...async} />;
+        }}
+      />
     );
-
 
     expect(producerSpy).toHaveBeenCalledTimes(1);
     interceptedProps.call();
