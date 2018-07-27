@@ -1,13 +1,16 @@
 import { abort, makeThenable, Thenable } from 'abortable';
-import { Component, ComponentClass, ComponentType, createElement } from 'react';
+import { Component, ComponentClass, ComponentType, createElement, ReactChild, ReactNode } from 'react';
 
 export type State<T> = {
   error: Error | null;
   isLoading: boolean;
   result: T | null;
 };
+
+export type ImperativeApi = { call: (setIsLoading?: boolean) => void }
+
 export type AsyncProps<T> = {
-  async: State<T> & { call: (setIsLoading?: boolean) => void };
+  async: State<T> & ImperativeApi;
 };
 
 export type Milliseconds = number;
@@ -121,3 +124,10 @@ export const withAsync = <OP, T>(
       return createElement(WrappedComponent, enhancedProps);
     }
   };
+
+type RenderProps<T> = {
+  producer: () => Thenable<T>,
+  render: (async: State<T> & ImperativeApi) => ReactChild,
+}
+export const WithAsync = <T>({ render, producer }: RenderProps<T>) =>
+  createElement(withAsync<{}, T>(producer)((props: State<T> & ImperativeApi) => render(props.async)));

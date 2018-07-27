@@ -2,7 +2,7 @@ import { Abortable } from 'abortable';
 import { mount } from 'enzyme';
 import { interceptor } from 'props-interceptor';
 import * as React from 'react';
-import { AsyncProps, withAsync } from './withAsync';
+import { AsyncProps, ImperativeApi, State, withAsync, WithAsync } from './withAsync';
 import runTimersToTime = jest.runTimersToTime;
 
 const noop = () => {}; // tslint:disable-line
@@ -205,6 +205,102 @@ describe('withAsync', () => {
 
     expect(producerSpy).toHaveBeenCalledTimes(1);
     asyncProps.async.call();
+    expect(producerSpy).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe('<WithAsync />', () => {
+  afterAll(jest.useRealTimers);
+  beforeAll(jest.useFakeTimers);
+
+  type TestAsyncValue = { chocolate: number };
+  type TestComponentOwnProps = { quantity: number };
+  type Props = TestComponentOwnProps & State<TestAsyncValue>;
+  const TestComponent = (props: Props) => (
+    <div>
+      <div className="quantity">{props.quantity}</div>
+      <div className="error">{props.error == null}</div>
+      <div className="isLoading">{props.isLoading}</div>
+      <div className="result">{props.result == null}</div>
+    </div>
+  );
+
+  it('executes its abortableProducer, passing the components props as an argument on mount', () => {
+    const producerSpy = jest.fn(() => new Promise(noop));
+    mount(
+      <WithAsync producer={producerSpy} render={(async: State<TestAsyncValue>) =>
+        <TestComponent quantity={1} {...async}/>
+      }/>
+    );
+
+    expect(producerSpy).toHaveBeenCalled();
+  });
+
+  it('provides a loading state of true when the value has not yet been resolved', () => {
+    const wrapper = mount(
+      <WithAsync producer={() => new Promise(noop)} render={(async: State<TestAsyncValue>) =>
+        <TestComponent quantity={1} {...async}/>
+      }/>
+    );
+
+    expect(wrapper.find<Props>(TestComponent).props().quantity).toBe(1);
+    expect(wrapper.find<Props>(TestComponent).props().isLoading).toBe(true);
+    expect(wrapper.find<Props>(TestComponent).props().error).toBeNull();
+    expect(wrapper.find<Props>(TestComponent).props().result).toBeNull();
+  });
+
+  it('displays its content, providing the promise resolution as a prop', () => {
+    const result = { chocolate: 5 };
+    const promise: Promise<TestAsyncValue> = new Promise(resolve => resolve(result));
+
+
+    const wrapper = mount(
+      <WithAsync producer={() => promise} render={(async: State<TestAsyncValue>) =>
+        <TestComponent quantity={1} {...async}/>
+      }/>
+    );
+    jest.runOnlyPendingTimers();
+
+    return promise.then(() => {
+      jest.runOnlyPendingTimers();
+      wrapper.update();
+      const props = wrapper.find<Props>(TestComponent).props();
+      expect(props.quantity).toBe(1);
+      expect(props.isLoading).toBe(false);
+      expect(props.error).toBeNull();
+      expect(props.result).toEqual(result);
+    });
+  });
+
+  it('aborts the promise if the component is unmounted', () => {
+    const abortablePromise = new Promise(noop) as Abortable<TestAsyncValue>;
+    abortablePromise.abort = jest.fn();
+
+    const wrapper = mount(
+      <WithAsync producer={() => abortablePromise} render={(async: State<TestAsyncValue>) =>
+        <TestComponent quantity={3} {...async}/>
+      }/>
+    );
+
+    wrapper.unmount();
+    expect(abortablePromise.abort).toHaveBeenCalled();
+  });
+
+  it('provides an imperative API to re call the then producer', () => {
+    const producerSpy = jest.fn(() => Promise.resolve(''));
+    let interceptedProps: State<TestAsyncValue> & ImperativeApi
+    const wrapper = mount(
+      <WithAsync producer={producerSpy} render={(async: State<TestAsyncValue> & ImperativeApi) => {
+        interceptedProps = async
+        return <TestComponent quantity={3} {...async}/>
+      }
+
+      }/>
+    );
+
+
+    expect(producerSpy).toHaveBeenCalledTimes(1);
+    interceptedProps.call();
     expect(producerSpy).toHaveBeenCalledTimes(2);
   });
 });
