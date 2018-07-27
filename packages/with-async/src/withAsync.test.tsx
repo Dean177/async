@@ -2,7 +2,7 @@ import { Abortable } from 'abortable';
 import { mount } from 'enzyme';
 import { interceptor } from 'props-interceptor';
 import * as React from 'react';
-import { AsyncProps, ImperativeApi, State, withAsync, WithAsync } from './withAsync';
+import { AsyncProps, ImperativeApi, State, withAsync, Async } from './withAsync';
 import runTimersToTime = jest.runTimersToTime;
 
 const noop = () => {}; // tslint:disable-line
@@ -228,7 +228,7 @@ describe('<WithAsync />', () => {
   it('executes its abortableProducer, passing the components props as an argument on mount', () => {
     const producerSpy = jest.fn(() => new Promise(noop));
     mount(
-      <WithAsync
+      <Async
         producer={producerSpy}
         render={(async: State<TestAsyncValue>) => <TestComponent quantity={1} {...async} />}
       />
@@ -239,8 +239,8 @@ describe('<WithAsync />', () => {
 
   it('provides a loading state of true when the value has not yet been resolved', () => {
     const wrapper = mount(
-      <WithAsync
-        producer={() => new Promise(noop)}
+      <Async
+        producer={() => new Promise(noop) as any}
         render={(async: State<TestAsyncValue>) => <TestComponent quantity={1} {...async} />}
       />
     );
@@ -256,7 +256,7 @@ describe('<WithAsync />', () => {
     const promise: Promise<TestAsyncValue> = new Promise(resolve => resolve(result));
 
     const wrapper = mount(
-      <WithAsync
+      <Async
         producer={() => promise}
         render={(async: State<TestAsyncValue>) => <TestComponent quantity={1} {...async} />}
       />
@@ -279,7 +279,7 @@ describe('<WithAsync />', () => {
     abortablePromise.abort = jest.fn();
 
     const wrapper = mount(
-      <WithAsync
+      <Async
         producer={() => abortablePromise}
         render={(async: State<TestAsyncValue>) => <TestComponent quantity={3} {...async} />}
       />
@@ -291,9 +291,9 @@ describe('<WithAsync />', () => {
 
   it('provides an imperative API to re call the then producer', () => {
     const producerSpy = jest.fn(() => Promise.resolve(''));
-    let interceptedProps: State<TestAsyncValue> & ImperativeApi;
+    let interceptedProps: State<TestAsyncValue> & ImperativeApi = null!;
     const wrapper = mount(
-      <WithAsync
+      <Async
         producer={producerSpy}
         render={(async: State<TestAsyncValue> & ImperativeApi) => {
           interceptedProps = async;

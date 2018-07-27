@@ -4,7 +4,6 @@ import {
   ComponentClass,
   ComponentType,
   createElement,
-  ReactChild,
   ReactNode
 } from 'react';
 
@@ -134,9 +133,7 @@ export const withAsync = <OP, T>(
 
 type RenderProps<T> = {
   producer: () => Thenable<T>;
-  render: (async: State<T> & ImperativeApi) => ReactChild;
+  render: (async: State<T> & ImperativeApi) => ReactNode;
 };
-export const WithAsync = <T>({ render, producer }: RenderProps<T>) =>
-  createElement(
-    withAsync<{}, T>(producer)((props: AsyncProps<T>) => render(props.async))
-  );
+export const Async = <T>({ render, producer }: RenderProps<T>) =>
+  createElement(withAsync<{}, T>(producer)(((props: AsyncProps<T>) => render(props.async)) as any));
