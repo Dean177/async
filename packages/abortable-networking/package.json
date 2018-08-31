@@ -1,7 +1,7 @@
 {
   "name": "abortable-networking",
   "dependencies": {
-    "abortable": "^0.2.0"
+    "abortable": "^0.7.0"
   },
   "peerDependencies": {
     "superagent": "3.5.x"
@@ -22,5 +22,5 @@
     "dev": "tsc --noEmit --watch",
     "prepublishOnly": "yarn build"
   },
-  "version": "0.2.0"
+  "version": "0.7.0"
 }
