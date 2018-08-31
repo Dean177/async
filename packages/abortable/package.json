@@ -15,5 +15,5 @@
     "dev": "tsc --noEmit --watch",
     "prepublishOnly": "yarn build"
   },
-  "version": "0.6.0"
+  "version": "0.7.0"
 }

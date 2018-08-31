@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "abortable": "^0.6.0"
+    "abortable": "^0.7.0"
   },
   "peerDependencies": {
     "react": "15.x || 16.x",
@@ -29,5 +29,5 @@
     "prepublishOnly": "yarn build"
   },
   "name": "with-async",
-  "version": "0.6.0"
+  "version": "0.7.0"
 }
