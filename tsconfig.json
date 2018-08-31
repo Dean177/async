@@ -4,6 +4,7 @@
     "baseUrl": ".",
     "declaration": true,
     "forceConsistentCasingInFileNames": true,
+    "lib": ["dom", "es2015"],
     "module": "commonjs",
     "noEmitOnError": true,
     "moduleResolution": "node",
@@ -13,7 +14,7 @@
     "sourceMap": false,
     "strict": true,
     "strictFunctionTypes": true,
-    "target": "es2015",
+    "target": "es5",
     "paths": {
       "*": ["packages/*/dist"]
     },
