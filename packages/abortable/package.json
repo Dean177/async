@@ -2,7 +2,7 @@
   "author": "Dean Merchant",
   "name": "abortable",
   "devDependencies": {
-    "typescript": "2.8.3"
+    "typescript": "3.1.1"
   },
   "license": "MIT",
   "files": [
