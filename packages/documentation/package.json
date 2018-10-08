@@ -6,14 +6,14 @@
   "dependencies": {
     "abortable": "^0.7.0",
     "abortable-networking": "^0.7.0",
-    "react": "16.3.2",
-    "react-dom": "16.3.2",
-    "react-hot-loader": "4.1.2",
+    "react": "16.5.2",
+    "react-dom": "16.5.2",
+    "react-hot-loader": "4.3.11",
     "with-async": "^0.7.0"
   },
   "devDependencies": {
-    "@dean177/react-scripts-ts": "2.15.1",
-    "typescript": "2.8.3"
+    "@dean177/react-scripts-ts": "2.16.0",
+    "typescript": "3.1.1"
   },
   "scripts": {
     "build": "react-scripts-ts build",
