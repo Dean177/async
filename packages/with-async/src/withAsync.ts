@@ -1,11 +1,5 @@
 import { abort, makeThenable, Thenable } from 'abortable';
-import {
-  Component,
-  ComponentClass,
-  ComponentType,
-  createElement,
-  ReactNode
-} from 'react';
+import { Component, ComponentClass, ComponentType, createElement, ReactNode } from 'react';
 
 export type State<T> = {
   error: Error | null;

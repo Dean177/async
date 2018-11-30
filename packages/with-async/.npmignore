@@ -1,6 +1,8 @@
 coverage
 exmaple
 Readme.md
+dist/withAsync.test.d.ts
+dist/withAsync.test.js
 src
 setupTestFramework.js
 tsconfig.json
