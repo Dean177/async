@@ -4,7 +4,6 @@ import {
   ComponentClass,
   ComponentType,
   createElement,
-  ComponentElement,
   ReactNode
 } from 'react';
 
@@ -85,18 +84,18 @@ export const withAsync = <OP, T>(
       }
     }
 
-    componentWillReceiveProps(nextProps: OP): void {
+    componentDidUpdate(previousProps: OP): void {
       if (
         options != null &&
         options.shouldReProduce != null &&
-        options.shouldReProduce(this.props, nextProps)
+        options.shouldReProduce(previousProps, this.props)
       ) {
         if (this.request != null) {
           abort([this.request]);
           this.request = null;
         }
 
-        this.executeThenableProducer(nextProps);
+        this.executeThenableProducer(this.props);
       }
     }
 

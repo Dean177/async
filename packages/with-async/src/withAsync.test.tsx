@@ -1,5 +1,5 @@
 import { Abortable } from 'abortable';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { interceptor } from 'props-interceptor';
 import * as React from 'react';
 import { AsyncProps, ImperativeApi, State, withAsync, Async } from './withAsync';
@@ -126,7 +126,7 @@ describe('withAsync', () => {
     const EnhancedComponent = withAsync<TestComponentOwnProps, TestAsyncValue>(producerSpy, {
       shouldReProduce: reevaluateSpy
     })(TestComponent);
-    const wrapper = mount(<EnhancedComponent quantity={1} />);
+    const wrapper = shallow(<EnhancedComponent quantity={1} />, { lifecycleExperimental: true });
     expect(producerSpy).toHaveBeenCalledWith({ quantity: 1 });
 
     wrapper.setProps({ quantity: 6 });

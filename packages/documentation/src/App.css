@@ -25,8 +25,7 @@ body,
 .examples {
   display: flex;
   flex: 1;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .example {

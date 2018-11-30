@@ -3,18 +3,17 @@
     "abortable": "^0.7.0"
   },
   "peerDependencies": {
-    "react": "15.x || 16.x",
-    "react-dom": "15.x || 16.x"
+    "react": "16.x",
+    "react-dom": "16.x"
   },
   "devDependencies": {
-    "@types/prop-types": "15.5.2",
-    "@types/react": "16.3.13",
+    "@types/react": "16.4.18",
     "@types/react-dom": "16.0.5",
     "props-interceptor": "1.0.1",
-    "react": "16.3.2",
-    "react-dom": "16.3.2",
-    "react-test-renderer": "16.3.2",
-    "typescript": "2.8.3"
+    "react": "16.6.3",
+    "react-dom": "16.6.3",
+    "react-test-renderer": "16.6.3",
+    "typescript": "3.2.1"
   },
   "license": "MIT",
   "files": [
@@ -25,7 +24,7 @@
   "scripts": {
     "build": "rm -rf dist && tsc",
     "build:docs": "rm -rf ../../docs && cd example && yarn && yarn build && cp -r ./build ../../../docs",
-    "dev": "tsc --noEmit --watch",
+    "start": "tsc --noEmit --watch",
     "prepublishOnly": "yarn build"
   },
   "name": "with-async",

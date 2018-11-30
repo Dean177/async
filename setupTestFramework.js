@@ -5,7 +5,10 @@ const { JSDOM } = require("jsdom");
 // In tests, polyfill requestAnimationFrame since jsdom doesn't provide it yet.
 
 require('raf').polyfill(global);
-Enzyme.configure({ adapter: new Adapter() });
+Enzyme.configure({
+  adapter: new Adapter(),
+  disableLifecycleMethods: false,
+});
 
 const jsdom = new JSDOM("<!doctype html><html><body></body></html>");
 const { window } = jsdom;

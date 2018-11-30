@@ -4,7 +4,7 @@
     "@types/jest": "21.1.4",
     "enzyme": "3.3.0",
     "enzyme-adapter-react-16": "1.1.1",
-    "jest": "22.4.3",
+    "jest": "23.6.0",
     "jsdom": "11.10.0",
     "lerna": "2.11.0",
     "prettier": "1.12.1",
@@ -46,7 +46,7 @@
   "prettier": {
     "parser": "typescript",
     "printWidth": 100,
-    "semi": true,
+    "semi": false,
     "singleQuote": true
   },
   "private": true,

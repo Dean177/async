@@ -1,9 +1,22 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "jsx": "react",
-    "lib": ["dom", "es6"],
+    "jsx": "preserve",
+    "lib": [
+      "dom",
+      "es6"
+    ],
     "outDir": "dist",
-    "rootDir": "src"
-  }
+    "rootDir": "src",
+    "allowJs": true,
+    "skipLibCheck": false,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
+  },
+  "include": [
+    "src"
+  ]
 }
