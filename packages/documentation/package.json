@@ -1,15 +1,15 @@
 {
   "name": "documentation",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "private": true,
   "homepage": "https://dean177.github.io/higher-order-async",
   "dependencies": {
     "abortable": "^0.7.0",
-    "abortable-networking": "^0.7.0",
+    "abortable-networking": "^0.8.0",
     "node-sass": "4.10.0",
     "react": "16.6.3",
     "react-dom": "16.6.3",
-    "with-async": "^0.7.0"
+    "with-async": "^0.8.0"
   },
   "devDependencies": {
     "@types/react": "16.4.18",
