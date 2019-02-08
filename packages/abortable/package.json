@@ -2,7 +2,7 @@
   "author": "Dean Merchant",
   "name": "abortable",
   "devDependencies": {
-    "typescript": "2.8.3"
+    "typescript": "3.3.3"
   },
   "license": "MIT",
   "files": [
@@ -13,7 +13,8 @@
   "scripts": {
     "build": "rm -rf dist && tsc",
     "dev": "tsc --noEmit --watch",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "yarn build",
+    "typecheck": "tsc --noEmit"
   },
   "version": "0.7.0"
 }

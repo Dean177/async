@@ -8,13 +8,13 @@
   },
   "devDependencies": {
     "@types/prop-types": "15.5.2",
-    "@types/react": "16.3.13",
-    "@types/react-dom": "16.0.5",
+    "@types/react": "16.8.2",
+    "@types/react-dom": "16.8.0",
     "props-interceptor": "1.0.1",
-    "react": "16.3.2",
-    "react-dom": "16.3.2",
-    "react-test-renderer": "16.3.2",
-    "typescript": "2.8.3"
+    "react": "16.8.1",
+    "react-dom": "16.8.1",
+    "react-test-renderer": "16.8.1",
+    "typescript": "3.3.3"
   },
   "license": "MIT",
   "files": [
@@ -26,8 +26,9 @@
     "build": "rm -rf dist && tsc",
     "build:docs": "rm -rf ../../docs && cd example && yarn && yarn build && cp -r ./build ../../../docs",
     "dev": "tsc --noEmit --watch",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "yarn build",
+    "typecheck": "tsc --noEmit"
   },
   "name": "with-async",
-  "version": "0.7.0"
+  "version": "1.0.0"
 }

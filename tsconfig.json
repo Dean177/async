@@ -15,6 +15,7 @@
     "strict": true,
     "strictFunctionTypes": true,
     "target": "es5",
+    "jsx": "react",
     "paths": {
       "*": ["packages/*/dist"]
     },

@@ -4,12 +4,12 @@
     "abortable": "^0.7.0"
   },
   "peerDependencies": {
-    "superagent": "3.5.x"
+    "superagent": "4.1.x"
   },
   "devDependencies": {
-    "@types/superagent": "3.5.6",
-    "superagent": "3.7.0",
-    "typescript": "2.8.3"
+    "@types/superagent": "3.8.6",
+    "superagent": "4.1.0",
+    "typescript": "3.3.3"
   },
   "license": "MIT",
   "files": [
@@ -20,7 +20,8 @@
   "scripts": {
     "build": "rm -rf dist && tsc",
     "dev": "tsc --noEmit --watch",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "yarn build",
+    "typecheck": "tsc --noEmit"
   },
   "version": "0.7.0"
 }

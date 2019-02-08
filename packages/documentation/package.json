@@ -6,18 +6,19 @@
   "dependencies": {
     "abortable": "^0.7.0",
     "abortable-networking": "^0.7.0",
-    "react": "16.3.2",
-    "react-dom": "16.3.2",
+    "react": "16.8.1",
+    "react-dom": "16.8.1",
     "react-hot-loader": "4.1.2",
     "with-async": "^0.7.0"
   },
   "devDependencies": {
-    "@dean177/react-scripts-ts": "2.15.1",
-    "typescript": "2.8.3"
+    "react-scripts": "2.1.3",
+    "typescript": "3.3.3"
   },
   "scripts": {
     "build": "react-scripts-ts build",
     "eject": "react-scripts-ts eject",
-    "start": "react-scripts-ts start"
+    "start": "react-scripts-ts start",
+    "typecheck": "tsc --noEmit"
   }
 }
