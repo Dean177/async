@@ -4,12 +4,32 @@
     "abortable": "^0.7.0"
   },
   "peerDependencies": {
-    "superagent": "4.1.x"
+    "superagent": "^4.1.0"
   },
   "devDependencies": {
+    "@types/jest": "23.3.13",
     "@types/superagent": "3.8.6",
+    "jest": "23.6.0",
+    "ts-jest": "23.10.5",
     "superagent": "4.1.0",
+
     "typescript": "3.3.3"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts}"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/?(*.)test.ts"
+    ],
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    }
   },
   "license": "MIT",
   "files": [
@@ -21,6 +41,7 @@
     "build": "rm -rf dist && tsc",
     "dev": "tsc --noEmit --watch",
     "prepublishOnly": "yarn build",
+    "test": "jest",
     "typecheck": "tsc --noEmit"
   },
   "version": "0.7.0"

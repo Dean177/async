@@ -35,35 +35,33 @@ export type Loading = { loading: true }
 export type Success<T> = { result: T }
 export type AsyncState<T> = Failed | Loading | Success<T>
 
-export const hasFailed = <T>(state: AsyncState<T>): state is Failed => 'error' in state
+export const hasFailed = <T>(state: AsyncState<T>): state is Failed =>
+  'error' in state && state.error !== null
+
 export const isLoading = <T>(state: AsyncState<T>): state is Loading =>
   'loading' in state && state.loading
+
 export const hasSucceeded = <T>(state: AsyncState<T>): state is Success<T> => 'result' in state
 
 export type ImperativeApi = { call: (setIsLoading?: boolean) => void }
 
 export const useAsync = <T>(
-  thenableProducer: () => T | Thenable<T>,
+  thenableProducer: () => Thenable<T>,
   dependencies: ReadonlyArray<any>,
   options?: { pollInterval: number },
 ): AsyncState<T> & ImperativeApi => {
   const activeThenable = useRef<Thenable<T> | null>(null)
-  const [state, setState] = useState<AsyncState<T>>({ loading: true })
+  const [state, setState] = useState<AsyncState<T>>({ loading: true } as Loading)
   const executeThenable = useCallback(() => {
     if (activeThenable.current != null) {
       abort([activeThenable.current])
     }
     const thenable = thenableProducer()
-    if (!thenable.hasOwnProperty('then')) {
-      return setState({ result: thenable as T })
-    }
     activeThenable.current = makeThenable(thenable)
     activeThenable.current
-      .then((response: T): void => setState({ result: response }))
-      .catch(error => setState({ error }))
-      .then(() => {
-        activeThenable.current = null
-      })
+      .then((response: T): void => setState({ result: response } as Success<T>))
+      .catch(error => setState({ error } as Failed))
+      .then(() => (activeThenable.current = null))
   }, dependencies)
 
   useEffect(() => {
@@ -75,7 +73,8 @@ export const useAsync = <T>(
     }
   }, [dependencies])
 
-  useInterval(executeThenable, options && options.pollInterval)
+  // TODO
+  // useInterval(executeThenable, options && options.pollInterval)
 
   return {
     ...state,
@@ -110,38 +109,32 @@ export const withAsync = <OP, T>(
 
     onError = (error: Error): void => {
       if (this.mounted) {
-        this.setState({ error })
+        this.setState({ error, loading: undefined } as Failed)
       }
     }
 
     executeThenableProducer(props: OP): void {
-      this.setState({ error: null, isLoading: true })
+      this.setState({ loading: true } as Loading)
       this.executeThenableSilent(props)
     }
 
-    executeThenableSilent(props: OP): void {
-      const thenable = thenableProducer(props)
-      if (!thenable.hasOwnProperty('then')) {
-        return this.setState({ result: thenable as T })
-      }
-      this.request = makeThenable(thenable)
-      try {
-        this.request
-          .then(
-            (response: T): void => {
-              if (!this.mounted) {
-                return
-              }
-              setTimeout(() => this.setState({ result: response }))
-            },
-          )
-          .catch(this.onError)
-          .then(() => {
-            this.request = null
-          })
-      } catch (err) {
-        this.onError(err)
-      }
+    executeThenableSilent(props: OP): Promise<void> {
+      this.request = makeThenable(thenableProducer(props))
+      return this.request
+        .then(
+          (response: T): void => {
+            if (!this.mounted) {
+              return
+            }
+            setTimeout(() =>
+              this.setState(({ loading: undefined, result: response } as any) as Success<T>),
+            )
+          },
+        )
+        .catch(this.onError)
+        .then(() => {
+          this.request = null
+        })
     }
 
     componentDidMount() {
@@ -198,6 +191,7 @@ export const withAsync = <OP, T>(
           ...this.state,
         },
       }
+
       return createElement(WrappedComponent, enhancedProps)
     }
   }
