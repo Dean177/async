@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "abortable": "^0.7.0",
+    "abortable": "^1.0.0-beta.0",
     "lerna": "3.13.0",
     "lint-staged": "8.1.4",
     "rimraf": "2.6.3"
@@ -62,5 +62,5 @@
     "typecheck": "tsc --noEmit"
   },
   "name": "with-async",
-  "version": "1.0.0"
+  "version": "1.0.0-beta.0"
 }

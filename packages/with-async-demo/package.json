@@ -1,6 +1,6 @@
 {
   "name": "with-async-demo",
-  "version": "0.0.0",
+  "version": "1.0.0-beta.0",
   "private": true,
   "homepage": "https://dean177.github.io/higher-order-async",
   "dependencies": {
