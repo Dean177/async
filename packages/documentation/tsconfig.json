@@ -1,9 +1,0 @@
-{
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "jsx": "react",
-    "lib": ["dom", "es6"],
-    "outDir": "dist",
-    "rootDir": "src"
-  }
-}

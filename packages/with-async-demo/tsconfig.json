@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "lib": [
+      "dom",
+      "es6"
+    ],
+    "outDir": "dist",
+    "rootDir": "src",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
+  },
+  "include": [
+    "src"
+  ]
+}

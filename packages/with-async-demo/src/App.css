@@ -22,26 +22,25 @@ body,
   margin: 30px;
 }
 
-.examples {
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-  flex-wrap: wrap;
+p {
+  margin-bottom: 10px;
+  margin-top: 0;
 }
 
 .example {
   display: flex;
   flex: 1;
   flex-direction: column;
+  margin-bottom: 30px;
   min-width: 400px;
 }
 
 .LabelledValue {
   margin-bottom: 20px;
 }
-.LabelledValue .label {
+.LabelledValue > label {
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .ExampleComponent {
@@ -59,16 +58,16 @@ body,
 }
 
 .loader {
+  animation: loading-spinner 1.4s infinite linear;
   font-size: 10px;
-  margin: 50px auto;
+  margin: 30px auto;
   text-indent: -9999em;
-  width: 11em;
-  height: 11em;
+  width: 5em;
+  height: 5em;
   border-radius: 50%;
   background: #503dff;
   background: linear-gradient(to right, #503dff 10%, rgba(80, 61, 255, 0) 42%);
   position: relative;
-  animation: load3 1.4s infinite linear;
   transform: translateZ(0);
 }
 .loader:before {
@@ -95,7 +94,7 @@ body,
   right: 0;
 }
 
-@keyframes load3 {
+@keyframes loading-spinner {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);

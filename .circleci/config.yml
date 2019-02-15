@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:11
 
     working_directory: ~/repo
 
@@ -16,10 +16,9 @@ jobs:
           - v1-dependencies-
 
       - run: yarn install --frozen-lockfile
-      - run: yarn run lerna bootstrap
-
+      - run: yarn bootstrap
       - run: yarn build
-      - run: yarn build:docs
+      - run: yarn build:demo
       - run: yarn lint
       - run: yarn prettier --list-different
       - run: yarn test --coverage

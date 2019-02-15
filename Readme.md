@@ -1,8 +1,8 @@
 # higher-order-async
 
-The packages in this repository are managed with [lerna](https://github.com/lerna/lerna)
+The packages in this repository are managed with [lerna](https://github.com/lerna/lerna).
 
-Each package contains its own readme
+Each package contains its own readme.
 
 ## Packages
 
@@ -13,7 +13,5 @@ Each package contains its own readme
 
 In the repository root run 
 `yarn && yarn bootstrap`
-or if you are using npm
-`npm install && npm run bootstrap`
 
 Then follow any steps detailed in each packages readme.

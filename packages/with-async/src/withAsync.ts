@@ -30,16 +30,16 @@ function useInterval(callback: () => void, delay?: number) {
   }, [delay])
 }
 
-export type Failed = { error: Error }
 export type Loading = { loading: true }
+export type Failed = { error: Error }
 export type Success<T> = { result: T }
-export type AsyncState<T> = Failed | Loading | Success<T>
-
-export const hasFailed = <T>(state: AsyncState<T>): state is Failed =>
-  'error' in state && state.error !== null
+export type AsyncState<T> = Loading | Failed | Failed & Loading | Success<T> | Success<T> & Loading
 
 export const isLoading = <T>(state: AsyncState<T>): state is Loading =>
   'loading' in state && state.loading
+
+export const hasFailed = <T>(state: AsyncState<T>): state is Failed =>
+  'error' in state && state.error !== null
 
 export const hasSucceeded = <T>(state: AsyncState<T>): state is Success<T> => 'result' in state
 
@@ -56,8 +56,7 @@ export const useAsync = <T>(
     if (activeThenable.current != null) {
       abort([activeThenable.current])
     }
-    const thenable = thenableProducer()
-    activeThenable.current = makeThenable(thenable)
+    activeThenable.current = makeThenable(thenableProducer())
     activeThenable.current
       .then((response: T): void => setState({ result: response } as Success<T>))
       .catch(error => setState({ error } as Failed))
@@ -71,10 +70,9 @@ export const useAsync = <T>(
         abort([activeThenable.current])
       }
     }
-  }, [dependencies])
+  }, dependencies)
 
-  // TODO
-  // useInterval(executeThenable, options && options.pollInterval)
+  useInterval(executeThenable, options && options.pollInterval)
 
   return {
     ...state,
