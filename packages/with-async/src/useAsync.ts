@@ -46,10 +46,13 @@ export const useAsync = <T>(
   dependencies: ReadonlyArray<any>,
   options?: { pollInterval: number },
 ): AsyncProps<T> => {
-  const mounted = useRef(true)
-  useEffect(() => () => {
-    mounted.current = false
-  })
+  const mounted = useRef(false)
+  useEffect(() => {
+    mounted.current = true
+    return () => {
+      mounted.current = false
+    }
+  }, [])
   const activeThenable = useRef<Thenable<T> | null>(null)
   const [state, setState] = useState<AsyncState<T>>({ loading: true } as Loading)
   const executeThenable = useCallback(() => {
