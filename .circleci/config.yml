@@ -21,7 +21,7 @@ jobs:
       - run: yarn build:demo
       - run: yarn lint
       - run: yarn prettier --list-different
-      - run: yarn test --coverage
+      - run: yarn test:coverage
 
       - save_cache:
           paths:

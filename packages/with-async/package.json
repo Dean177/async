@@ -58,6 +58,7 @@
     "dev": "tsc --noEmit --watch",
     "prepublishOnly": "yarn build",
     "test": "jest",
+    "test:coverage": "jest  --coverage",
     "typecheck": "tsc --noEmit"
   },
   "name": "with-async",

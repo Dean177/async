@@ -8,8 +8,7 @@ const delay = (milliseconds: number): Promise<void> =>
 
 export const abortableFetch = (url: RequestInfo, options?: RequestInit): Abortable<Response> => {
   const controller = new AbortController()
-  const signal = controller.signal
-  const request = fetch(url, { ...options, signal }) as Abortable<Response>
+  const request = fetch(url, { ...options, signal: controller.signal }) as Abortable<Response>
   const abort = controller.abort
   request.abort = abort
   return request

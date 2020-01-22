@@ -34,6 +34,7 @@
     "dev": "tsc --noEmit --watch",
     "prepublishOnly": "yarn build",
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "typecheck": "tsc --noEmit"
   },
   "version": "1.0.0-beta.2"

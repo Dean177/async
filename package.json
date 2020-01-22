@@ -41,6 +41,7 @@
     "prettier": "prettier --write \"packages/*/src/**/*.{ts,tsx}\"",
     "prepublishOnly": "lerna run prepublishOnly",
     "test": "lerna run test",
+    "test:coverage": "lerna run test:coverage",
     "typecheck": "lerna run typecheck"
   },
   "workspaces": [
