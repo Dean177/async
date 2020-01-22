@@ -1,7 +1,7 @@
 {
   "name": "abortable-networking",
   "dependencies": {
-    "abortable": "^1.0.0-beta.0"
+    "abortable": "^1.0.2-beta.2"
   },
   "peerDependencies": {
     "superagent": "^4.1.0"
@@ -44,5 +44,5 @@
     "test:coverage": "jest  --coverage",
     "typecheck": "tsc --noEmit"
   },
-  "version": "1.0.0-beta.2"
+  "version": "1.0.2-beta.2"
 }

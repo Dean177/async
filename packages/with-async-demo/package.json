@@ -1,6 +1,5 @@
 {
   "name": "with-async-demo",
-  
   "private": true,
   "homepage": "https://dean177.github.io/async",
   "dependencies": {
@@ -30,5 +29,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "version": "1.0.0-beta.2"
+  "version": "1.0.2-beta.2"
 }
