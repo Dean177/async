@@ -58,13 +58,16 @@ describe('Abortable.all', () => {
 
 describe('makeThenable', () => {
   it('will lift a non-thenable value into a promise', () =>
-    makeThenable(1).then(res => expect(res).toBe(1)))
+    makeThenable(1).then((res: number) => expect(res).toBe(1)))
 
-  it('will call then on thenable value', () => {
-    const rawThenable = { then: jest.fn(() => Promise.resolve(1)) }
-    const thenable = makeThenable(rawThenable)
-    expect(rawThenable.then).toHaveBeenCalled()
-    return thenable.then(res => {
+  it('will call then on the thenable value', () => {
+    const mockThen = jest.fn(<T>(f: (n: number) => T): Promise<T> => Promise.resolve(f(1)))
+    const rawThenable = {
+      then: mockThen as <T>(f: (value: number) => T) => Promise<T>,
+    }
+    const thenable = makeThenable(rawThenable as Promise<number>)
+    expect(mockThen).toHaveBeenCalled()
+    return thenable.then((res: number) => {
       expect(res).toBe(1)
     })
   })
