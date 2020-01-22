@@ -46,6 +46,10 @@ export const useAsync = <T>(
   dependencies: ReadonlyArray<any>,
   options?: { pollInterval: number },
 ): AsyncProps<T> => {
+  const mounted = useRef(true)
+  useEffect(() => () => {
+    mounted.current = false
+  })
   const activeThenable = useRef<Thenable<T> | null>(null)
   const [state, setState] = useState<AsyncState<T>>({ loading: true } as Loading)
   const executeThenable = useCallback(() => {
@@ -57,11 +61,13 @@ export const useAsync = <T>(
     activeThenable.current = makeThenable(thenableProducer())
     activeThenable.current
       .then((response: T): void => {
-        setState({ result: response } as Success<T>)
+        if (mounted.current) {
+          setState({ result: response } as Success<T>)
+        }
       })
       .catch(error => {
         // Support using AbortController: https://developer.mozilla.org/en-US/docs/Web/API/AbortController
-        if (error.name && error.name === 'AbortError') {
+        if (!mounted.current || (error.name && error.name === 'AbortError')) {
           return
         } else {
           setState({ error } as Failed)
