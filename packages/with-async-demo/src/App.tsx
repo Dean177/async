@@ -1,4 +1,4 @@
-import { Abortable, Thenable } from 'abortable'
+import { Abortable } from 'abortable'
 import React, { useState } from 'react'
 import { useAsync, hasFailed, isLoading, hasSucceeded } from 'with-async'
 import './App.css'
@@ -6,11 +6,43 @@ import './App.css'
 const delay = (milliseconds: number): Promise<void> =>
   new Promise(resolve => setTimeout(resolve, milliseconds))
 
-export const abortableFetch = (url: RequestInfo, options?: RequestInit): Abortable<Response> => {
+const fetchUnreliably = (postId: string): Abortable<Post> => {
   const controller = new AbortController()
-  const request = fetch(url, { ...options, signal: controller.signal }) as Abortable<Response>
-  const abort = controller.abort
-  request.abort = abort
+  const signal = controller.signal
+  const shouldFail = Math.random() < 0.3
+  const url = `https://jsonplaceholder.typicode.com/posts/${postId}`
+  const request = new Promise((resolve, reject) => {
+    if (shouldFail) {
+      signal.addEventListener('abort', () => {
+        reject(new DOMException('Pretend cancelation event', 'AbortError'))
+      })
+    }
+    delay(3000).then(() => {
+      if (shouldFail) {
+        if (!signal.aborted) {
+          reject(new Error('A Random failure'))
+        }
+      } else {
+        fetch(url, { signal })
+          .then(response => response.json())
+          .then(
+            (post: any): Post => {
+              if (!post.title || !post.body) {
+                return { post: null }
+              }
+              return { post }
+            },
+          )
+          .then(post => resolve(post))
+          .catch(error => reject(error))
+      }
+    })
+  }) as Abortable<Post>
+
+  request.abort = () => {
+    controller.abort()
+  }
+
   return request
 }
 
@@ -35,30 +67,10 @@ const ErrorMessage = () => (
 )
 
 type Post = { post: { title: string; body: string } | null }
-const jsonPlaceholderPosts = (postId: string): Thenable<Post> => {
-  const success = Math.random() > 0.3
-  if (!success) {
-    return delay(3000).then(() => Promise.reject(new Error('A Random failure')))
-  }
-  const response = abortableFetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
-  const result = delay(3000)
-    .then(() => response)
-    .then((res: Response) => res.json())
-    .then(
-      (post: any): Post => {
-        if (!post.title || !post.body) {
-          return { post: null }
-        }
-        return { post }
-      },
-    ) as Abortable<Post>
-  result.abort = response.abort
-  return result
-}
 
 const AsyncComponent = () => {
   const [postId, setPostId] = useState('5')
-  const async = useAsync(() => jsonPlaceholderPosts(postId), [postId])
+  const async = useAsync(() => fetchUnreliably(postId), [postId])
   return (
     <>
       <LabelledValue label={'Post ID'}>

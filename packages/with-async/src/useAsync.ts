@@ -49,23 +49,35 @@ export const useAsync = <T>(
   const activeThenable = useRef<Thenable<T> | null>(null)
   const [state, setState] = useState<AsyncState<T>>({ loading: true } as Loading)
   const executeThenable = useCallback(() => {
+    // If the user `call`s the imperative API or a polling interval is provided and a new fetch is started before the previous one has completed,
+    // there will be an active request which we need to clear before starting a new one.
     if (activeThenable.current != null) {
-      abort([activeThenable.current])
+      abort(activeThenable.current)
     }
     activeThenable.current = makeThenable(thenableProducer())
     activeThenable.current
-      .then((response: T): void => setState({ result: response } as Success<T>))
-      .catch(error => {
-        setState({ error } as Failed)
+      .then((response: T): void => {
+        setState({ result: response } as Success<T>)
       })
-      .then(() => (activeThenable.current = null))
+      .catch(error => {
+        // Support using AbortController: https://developer.mozilla.org/en-US/docs/Web/API/AbortController
+        if (error.name && error.name === 'AbortError') {
+          return
+        } else {
+          setState({ error } as Failed)
+        }
+      })
+      .finally(() => {
+        activeThenable.current = null
+      })
   }, dependencies)
 
   useEffect(() => {
     executeThenable()
     return () => {
       if (activeThenable.current != null) {
-        abort([activeThenable.current])
+        abort(activeThenable.current)
+        activeThenable.current = null
       }
     }
   }, dependencies)
