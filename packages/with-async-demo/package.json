@@ -29,5 +29,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "version": "1.0.2-beta.4"
+  "version": "1.0.2-beta.5"
 }
